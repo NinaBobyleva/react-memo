@@ -78,7 +78,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
     setStatus(STATUS_PREVIEW);
-    // setEasymode(true);
     setLives(3);
   }
 
@@ -130,21 +129,9 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
       return false;
     });
 
-    // const playerLost = openCardsWithoutPair.length >= 2;
-
-    // // "Игрок проиграл", т.к на поле есть две открытые карты без пары
-    // if (playerLost) {
-    //   finishGame(STATUS_LOST);
-    //   return;
-    // }
-
     // // ... игра продолжается
-    // let easymode = false;
+
     const playerLost = openCardsWithoutPair.length >= 2;
-    // if (cards.length === 6) {
-    //   setEasymode(true)
-    // }
-    // console.log(easymode);
 
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
     if (playerLost && !easyMode) {
