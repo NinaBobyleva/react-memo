@@ -6,6 +6,7 @@ import { EndGameModal } from "../../components/EndGameModal/EndGameModal";
 import { Button } from "../../components/Button/Button";
 import { Card } from "../../components/Card/Card";
 import { LivesContext } from "../../context/livesContext";
+import { EasyModeContext } from "../../context/easymodeContext";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -46,12 +47,13 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const [cards, setCards] = useState([]);
   // Текущий статус игры
   const [status, setStatus] = useState(STATUS_PREVIEW);
-
   // Дата начала игры
   const [gameStartDate, setGameStartDate] = useState(null);
   // Дата конца игры
   const [gameEndDate, setGameEndDate] = useState(null);
-
+  // Режим трёх попыток
+  const { easyMode } = useContext(EasyModeContext);
+  // Счетчик жизней
   const { lives, setLives } = useContext(LivesContext);
 
   // Стейт для таймера, высчитывается в setInteval на основе gameStartDate и gameEndDate
@@ -76,6 +78,8 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setGameEndDate(null);
     setTimer(getTimerValue(null, null));
     setStatus(STATUS_PREVIEW);
+    // setEasymode(true);
+    setLives(3);
   }
 
   /**
@@ -135,18 +139,21 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     // }
 
     // // ... игра продолжается
-    const easymode = true;
+    // let easymode = false;
     const playerLost = openCardsWithoutPair.length >= 2;
-    // const playerLost = openCardsWithoutPair.length >= 6;
+    // if (cards.length === 6) {
+    //   setEasymode(true)
+    // }
+    // console.log(easymode);
 
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
-    if (playerLost && !easymode) {
+    if (playerLost && !easyMode) {
       finishGame(STATUS_LOST);
       return;
     }
 
     // ... игра продолжается
-    if (playerLost && easymode) {
+    if (playerLost && easyMode) {
       setLives(lives - 1);
       nextCards.map(card => {
         if (openCardsWithoutPair.some(opencard => opencard.id === card.id)) {
@@ -229,7 +236,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
         </div>
         {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
       </div>
-
       <div className={styles.cards}>
         {cards.map(card => (
           <Card
@@ -241,8 +247,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           />
         ))}
       </div>
-      <p>Осталось попыток: {lives}</p>
-
+      {cards.length === 6 && easyMode ? <p className={styles.subtitle}>Осталось попыток: {lives}</p> : ""}
       {isGameEnded ? (
         <div className={styles.modalContainer}>
           <EndGameModal

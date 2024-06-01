@@ -4,6 +4,7 @@
   "rules": {
     "camelcase": ["error", { "properties": "never" }],
     "prettier/prettier": "error",
+    "endOfLine": "auto",
     "eqeqeq": ["error", "always"],
     "no-unused-vars": ["error"]
   }
