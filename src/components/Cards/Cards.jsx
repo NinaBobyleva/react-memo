@@ -129,8 +129,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
       return false;
     });
 
-    // // ... игра продолжается
-
     const playerLost = openCardsWithoutPair.length >= 2;
 
     // "Игрок проиграл", т.к на поле есть две открытые карты без пары
@@ -142,6 +140,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     // ... игра продолжается
     if (playerLost && easyMode) {
       setLives(lives - 1);
+      // eslint-disable-next-line array-callback-return
       nextCards.map(card => {
         if (openCardsWithoutPair.some(opencard => opencard.id === card.id)) {
           if (card.open) {
