@@ -53,6 +53,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const [gameEndDate, setGameEndDate] = useState(null);
   // Режим трёх попыток
   const { easyMode } = useContext(EasyModeContext);
+  console.log(easyMode);
   // Счетчик жизней
   const { lives, setLives } = useContext(LivesContext);
 
@@ -157,6 +158,9 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
         return;
       }
     }
+    // if (router === "/react-memo") {
+    //   setEasymode(false);
+    // }
   };
 
   const isGameEnded = status === STATUS_LOST || status === STATUS_WON;
@@ -233,7 +237,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           />
         ))}
       </div>
-      {cards.length === 6 && easyMode ? <p className={styles.subtitle}>Осталось попыток: {lives}</p> : ""}
+      {easyMode ? <p className={styles.subtitle}>Осталось попыток: {lives}</p> : ""}
       {isGameEnded ? (
         <div className={styles.modalContainer}>
           <EndGameModal
