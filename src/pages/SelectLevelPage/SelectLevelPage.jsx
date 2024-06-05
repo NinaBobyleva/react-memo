@@ -36,9 +36,12 @@ export function SelectLevelPage() {
           </li>
         </ul>
         <div className={styles.wrap}>
-          <h3 className={styles.subtitle}>Дополнительные попытки</h3>
+          <h3 className={styles.subtitle}>Упрощенный режим(3 жизни)</h3>
           <input onClick={checkbox} type="checkbox" />
         </div>
+        <Link className={styles.link} to="/leaderboard">
+          Перейти к лидерборду
+        </Link>
       </div>
     </div>
   );

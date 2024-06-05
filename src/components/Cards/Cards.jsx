@@ -53,7 +53,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const [gameEndDate, setGameEndDate] = useState(null);
   // Режим трёх попыток
   const { easyMode } = useContext(EasyModeContext);
-  console.log(easyMode);
   // Счетчик жизней
   const { lives, setLives } = useContext(LivesContext);
 
