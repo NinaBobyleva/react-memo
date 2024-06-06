@@ -8,11 +8,11 @@ export const getLeaders = () => {
   });
 };
 
-// export const postLeaders = () => {
-//   return fetch(leadersURL, {
-//     method: "POST",
-//     body: JSON.stringify()
-//   }).then(response => {
-//     return response.json();
-//   });
-// };
+export const postLeaders = ({ resultLeaderboard }) => {
+  return fetch(leadersURL, {
+    method: "POST",
+    body: JSON.stringify(resultLeaderboard),
+  }).then(response => {
+    return response.json();
+  });
+};
