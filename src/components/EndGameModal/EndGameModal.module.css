@@ -1,6 +1,6 @@
 .modal {
   width: 480px;
-  height: 459px;
+  /* height: 459px; */
   border-radius: 12px;
   background: #c2f5ff;
   display: flex;
@@ -24,6 +24,7 @@
   width: 96px;
   height: 96px;
   margin-bottom: 8px;
+  margin-top: 20px;
 }
 
 .title {
@@ -86,4 +87,5 @@
   text-align: left;
   color: #565eef;
   padding-top: 20px;
+  padding-bottom: 40px;
 }

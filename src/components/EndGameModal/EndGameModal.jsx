@@ -5,7 +5,7 @@ import { Button } from "../Button/Button";
 
 import deadImageUrl from "./images/dead.png";
 import celebrationImageUrl from "./images/celebration.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { getTimeInSeconds } from "../../utils/helpers";
 import { postLeaders } from "../../api/leaders";
@@ -31,11 +31,9 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
 
   const title = isWon ? (isLeadResult ? "Вы попали на Лидерборд!" : "Вы победили!") : "Вы проиграли!";
 
-  // const [error, setError] = useState("");
-  // console.log(error);
-  // if (!inputLeaders.name) {
-  //   return setError("Введите имя пользователя");
-  // }
+  const navigate = useNavigate();
+
+  const [error, setError] = useState("");
 
   const onLeaders = () => {
     const resultLeaderboard = {
@@ -43,13 +41,17 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       time: timeLeaders,
     };
 
-    postLeaders({ resultLeaderboard }).then(res => {
-      console.log(res);
-    });
+    postLeaders({ resultLeaderboard })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        setError(err.message);
+      });
   };
 
   return (
-    <div className={styles.modLeaders}>
+    <div className={styles.modal}>
       <img className={styles.image} src={imgSrc} alt={imgAlt} />
       <h2 className={styles.title}>{title}</h2>
       {isLeadResult ? (
@@ -57,7 +59,13 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
           <form
             onSubmit={e => {
               e.preventDefault();
+              if (!inputLeaders.trim()) {
+                setInputLeaders("Введите имя");
+                return;
+              }
               onLeaders();
+              setInputLeaders("");
+              navigate("/leaderboard");
             }}
           >
             <input
@@ -85,6 +93,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       <Link className={styles.link} to="/leaderboard">
         Перейти к лидерборду
       </Link>
+      {error && error}
     </div>
   );
 }
