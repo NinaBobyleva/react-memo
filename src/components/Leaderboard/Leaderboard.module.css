@@ -1,0 +1,39 @@
+.position {
+    width: 178px;
+    font-family: Poppins;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    margin-left: 20px;
+}
+
+.user {
+    width: 324px;
+    font-family: Poppins;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+}
+
+.time {
+    width: 102px;
+    font-family: Poppins;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+}
+
+.item {
+    width: 944px;
+    height: 64px;
+    display: flex;
+    gap: 66px;
+    /* align-items: center; */
+    box-sizing: border-box;
+    padding-top: 16px;
+    margin-bottom: 16px;
+    font-size: 24px;
+    font-family: StratosSkyeng;
+    background-color: #fff;
+    border-radius: 12px;
+}
