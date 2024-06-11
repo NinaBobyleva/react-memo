@@ -9,11 +9,7 @@ export const Leaderboard = ({ position, user, time, achievements, color = "black
 
   const achivImg = achievements === 1 ? vectorActivImageUrl : vectorImageUrl;
 
-  const achivImgAlt = achievements === 1 ? "activ" : "noactiv";
-
   const achivImg2 = achievements === 2 ? magicBallActivImageUrl : magicBallImageUrl;
-
-  const achivImgAlt2 = achievements === 2 ? "activ" : "noactiv";
 
   return (
     <>
@@ -21,8 +17,8 @@ export const Leaderboard = ({ position, user, time, achievements, color = "black
         <div className={styles.position}>{position}</div>
         <div className={styles.user}>{user}</div>
         <div className={styles.img}>
-          <img src={achivImg} alt={achivImgAlt} />
-          <img src={achivImg2} alt={achivImgAlt2} />
+          <img src={achivImg} alt="" />
+          <img src={achivImg2} alt="" />
         </div>
         <div className={styles.time}>{time}</div>
       </li>
