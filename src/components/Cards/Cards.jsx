@@ -8,6 +8,7 @@ import { Card } from "../../components/Card/Card";
 import { LivesContext } from "../../context/livesContext";
 import { EasyModeContext } from "../../context/easymodeContext";
 import { CardsContext } from "../../context/cardsContext";
+import epiphany from "./images/epiphany.png";
 
 // Игра закончилась
 const STATUS_LOST = "STATUS_LOST";
@@ -223,6 +224,26 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
               </div>
             </>
           )}
+        </div>
+        <div className={styles.superPowers}>
+          <div className={styles.wrapper}>
+            <img src={epiphany} alt="" />
+            <div className={styles.layout}></div>
+            <div className={styles.bubble}>
+              <h4 className={styles.title}>Прозрение</h4>
+              <p className={styles.description}>
+                На 5 секунд показываются все карты. Таймер длительности игры на это время останавливается.
+              </p>
+            </div>
+          </div>
+          {/* <div className={styles.wrapper}>
+            <img src="" alt="" />
+            <div className={styles.layout}></div>
+            <div className={styles.bubble}>
+              <h4 className={styles.title}>Алохомора</h4>
+              <p className={styles.description}>Открывается случайная пара карт.</p>
+            </div>
+          </div> */}
         </div>
         {status === STATUS_IN_PROGRESS ? <Button onClick={resetGame}>Начать заново</Button> : null}
       </div>
