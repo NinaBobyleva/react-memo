@@ -50,7 +50,7 @@ export function LeaderboardPage() {
               position={`#${index + 1}`}
               user={el.name}
               time={formatTime(el.time)}
-              achievements={el.achievements[index]}
+              achievements={el.achievements}
             />
           ))}
         </ul>

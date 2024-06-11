@@ -7,9 +7,9 @@ import magicBallActivImageUrl from "./images/magic-ball-activ.png";
 export const Leaderboard = ({ position, user, time, achievements, color = "black" }) => {
   console.log(achievements);
 
-  const achivImg = achievements === 1 ? vectorActivImageUrl : vectorImageUrl;
+  const achivImg = achievements[0] === 1 ? vectorActivImageUrl : vectorImageUrl;
 
-  const achivImg2 = achievements === 2 ? magicBallActivImageUrl : magicBallImageUrl;
+  const achivImg2 = achievements[1] === 2 ? magicBallActivImageUrl : magicBallImageUrl;
 
   return (
     <>
