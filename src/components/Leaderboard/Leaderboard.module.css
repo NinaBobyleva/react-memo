@@ -8,15 +8,22 @@
 }
 
 .user {
-    width: 324px;
+    width: 227px;
     font-family: Poppins;
     font-size: 24px;
     font-weight: 400;
     line-height: 32px;
 }
 
+.img {
+    width: 194px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
 .time {
-    width: 102px;
+    width: 92px;
     font-family: Poppins;
     font-size: 24px;
     font-weight: 400;
@@ -28,7 +35,6 @@
     height: 64px;
     display: flex;
     gap: 66px;
-    /* align-items: center; */
     box-sizing: border-box;
     padding-top: 16px;
     margin-bottom: 16px;

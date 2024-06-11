@@ -22,6 +22,7 @@ export function LeaderboardPage() {
 
   useEffect(() => {
     getLeaders().then(leaders => {
+      console.log(leaders);
       const sortedLeaders = sortLeadersElements(leaders.leaders);
       setLeaders(sortedLeaders.splice(1, 10));
     });
@@ -39,12 +40,18 @@ export function LeaderboardPage() {
         <div className={styles.box}>
           <p className={styles.subtitle1}>Позиция</p>
           <p className={styles.subtitle2}>Пользователь</p>
-          <p className={styles.subtitle3}></p>
+          <p className={styles.subtitle3}>Достижения</p>
           <p className={styles.subtitle4}>Время</p>
         </div>
         <ul className={styles.wrap}>
           {leaders.map((el, index) => (
-            <Leaderboard key={el.id} position={`#${index + 1}`} user={el.name} time={formatTime(el.time)} />
+            <Leaderboard
+              key={el.id}
+              position={`#${index + 1}`}
+              user={el.name}
+              time={formatTime(el.time)}
+              achievements={el.achievements[index]}
+            />
           ))}
         </ul>
       </main>
