@@ -77,3 +77,70 @@
   line-height: 18px;
   margin-top: 20px;
 }
+
+.superPowersContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.layout {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  background: #004980;
+  opacity: 60%;
+  position: fixed;
+  z-index: 1;
+}
+
+.wrapper {
+  z-index: 2;
+  position: relative;
+}
+
+.wrapper:hover + .layout {
+  display: block;
+}
+
+.wrapper:hover .bubble {
+  display: block;
+}
+
+.superPower {
+  width: 68px;
+}
+
+.bubble {
+  position: absolute;
+  padding: 30px;
+  text-align: center;
+  top: 90px;
+  left: -115%;
+  display: none;
+  background: #C2F5FF;
+  border-radius: 12px;
+}
+
+.title {
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 24px;
+  text-align: center;
+  color: #004980;
+  padding-bottom: 10px;
+}
+
+.description {
+  width: 182px;
+  height: 144px;
+  font-family: Inter;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  color: #004980;
+}
