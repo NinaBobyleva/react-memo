@@ -108,8 +108,14 @@
   display: block;
 }
 
-.superPower {
+.superPowerImg {
   width: 68px;
+}
+
+.disabledEpiphany {
+  width: 68px;
+  pointer-events: none;
+  opacity: 40%;
 }
 
 .bubble {

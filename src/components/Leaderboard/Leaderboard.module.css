@@ -43,3 +43,19 @@
     background-color: #fff;
     border-radius: 12px;
 }
+
+.wrapper:hover .bubble {
+    display: block;
+  }
+
+.bubble {
+    position: absolute;
+    padding: 30px;
+    display: none;
+}
+
+.description {
+    position: relative;
+    top: -160px;
+    right: 35px;
+}
