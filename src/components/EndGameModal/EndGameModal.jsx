@@ -13,7 +13,15 @@ import { useContext } from "react";
 import { LeadersContext } from "../../context/leaderboardContext";
 import { sortLeadersElements } from "../../utils/helpers";
 
-export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick, pairsCount, timer }) {
+export function EndGameModal({
+  isWon,
+  gameDurationSeconds,
+  gameDurationMinutes,
+  onClick,
+  pairsCount,
+  timer,
+  achievements,
+}) {
   const timeLeaders = getTimeInSeconds({ minutes: gameDurationMinutes, seconds: gameDurationSeconds });
 
   const imgSrc = isWon ? celebrationImageUrl : deadImageUrl;
@@ -39,6 +47,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
     const resultLeaderboard = {
       name: inputLeaders,
       time: timeLeaders,
+      achievements: achievements,
     };
 
     postLeaders({ resultLeaderboard })
@@ -56,18 +65,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       <h2 className={styles.title}>{title}</h2>
       {isLeadResult ? (
         isWon ? (
-          <form
-            onSubmit={e => {
-              e.preventDefault();
-              if (!inputLeaders.trim()) {
-                setInputLeaders("Введите имя");
-                return;
-              }
-              onLeaders();
-              setInputLeaders("");
-              navigate("/leaderboard");
-            }}
-          >
+          <form className={styles.form}>
             <input
               className={styles.input}
               onChange={e => {
@@ -77,6 +75,19 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
               type="text"
               placeholder="Пользователь"
             />
+            <Button
+              onClick={e => {
+                e.preventDefault();
+                if (!inputLeaders.trim()) {
+                  return;
+                }
+                onLeaders();
+                setInputLeaders("");
+                navigate("/leaderboard");
+              }}
+            >
+              Отправить
+            </Button>
           </form>
         ) : (
           ""

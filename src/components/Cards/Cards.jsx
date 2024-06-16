@@ -8,7 +8,7 @@ import { Card } from "../../components/Card/Card";
 import { LivesContext } from "../../context/livesContext";
 import { EasyModeContext } from "../../context/easymodeContext";
 import { CardsContext } from "../../context/cardsContext";
-import epiphany from "./images/epiphany.png";
+// import epiphany from "./images/epiphany.png";
 import alohomora from "./images/alohomora.png";
 
 // Игра закончилась
@@ -62,9 +62,11 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   // Счетчик жизней
   const { lives, setLives } = useContext(LivesContext);
 
-  const [isActivEpiphany, setIsActivEpiphany] = useState(false);
+  // const [isActivEpiphany, setIsActivEpiphany] = useState(false);
 
   const [isActivAlohomora, setIsActivAlohomora] = useState(false);
+
+  // const [isPaused, setIsPaused] = useState(false);
 
   // Стейт для таймера, высчитывается в setInteval на основе gameStartDate и gameEndDate
   const [timer, setTimer] = useState({
@@ -90,7 +92,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     setTimer(getTimerValue(null, null));
     setStatus(STATUS_PREVIEW);
     setLives(3);
-    setIsActivEpiphany(false);
     setIsActivAlohomora(false);
   }
 
@@ -134,7 +135,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     // Ищем открытые карты, у которых нет пары среди других открытых
     const openCardsWithoutPair = openCards.filter(card => {
       const sameCards = openCards.filter(openCard => card.suit === openCard.suit && card.rank === openCard.rank);
-
       if (sameCards.length < 2) {
         return true;
       }
@@ -212,25 +212,29 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
   // Заготовка для Epiphany
   // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setTimer(getTimerValue(gameStartDate, gameEndDate));
-  //   }, 300);
-  //   if (status === STATUS_PAUSED) {
-  //     clearInterval(intervalId);
-  //     const id = setInterval(() => {
+  //   if (status !== STATUS_PAUSED) {
+  //     const intervalId = setInterval(() => {
   //       setTimer(getTimerValue(gameStartDate, gameEndDate));
   //     }, 300);
   //     return () => {
-  //       clearInterval(id);
-  //       setTimer(getTimerValue(null, null));
+  //       clearInterval(intervalId);
   //     };
   //   }
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
   // }, [gameStartDate, gameEndDate, status]);
 
+  // return () => {
+  //   clearInterval(intervalId);
+  //   const id = setInterval(() => {
+  //     setTimer(getTimerValue(gameStartDate, gameEndDate));
+  //   }, 300);
+  //   return () => {
+  //     clearInterval(id);
+  //     // setTimer(getTimerValue(null, null));
+  //   };
+  // };
+
   // const onEpiphany = () => {
+  //   // setIsPaused(true);
   //   setIsActivEpiphany(true);
   //   const oldTime = timer;
   //   const date = new Date();
@@ -247,24 +251,25 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
 
   const onAlohomora = () => {
     setIsActivAlohomora(true);
-    const closedCards = cards.filter(card => !card.open);
-    const firstRandomCard = closedCards[Math.round(Math.random() * (closedCards.length - 1) + 1)];
-    const secondRandomCard = closedCards.filter(
-      closedCard =>
-        closedCard.suit === firstRandomCard.suit &&
-        closedCard.rank === firstRandomCard.rank &&
-        firstRandomCard.id !== closedCard.id,
-    );
-    setCards(
-      cards.map(card => {
-        if (card === firstRandomCard || card === secondRandomCard[0]) {
-          return { ...card, open: true };
-        } else {
-          return card;
-        }
-      }),
-    );
+    const firstCard = cards.find(card => card.open === false);
+    const newCards = cards.map(card => {
+      return card.suit === firstCard.suit && card.rank === firstCard.rank ? { ...card, open: true } : card;
+    });
+    const isGameOver = newCards.some(item => !item.open);
+    setCards(newCards);
+    if (!isGameOver) {
+      finishGame(STATUS_WON);
+    }
   };
+
+  const achievements = [];
+
+  if (!easyMode) {
+    achievements.push(1);
+  }
+  if (!isActivAlohomora) {
+    achievements.push(2);
+  }
 
   return (
     <div className={styles.container}>
@@ -293,9 +298,10 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           ""
         ) : (
           <div className={styles.superPowersContainer}>
-            <div>
+            {/* <div>
               <div className={styles.wrapper}>
                 <img
+                  // onClick={onEpiphany}
                   className={isActivEpiphany ? styles.disabledEpiphany : styles.superPowerImg}
                   src={epiphany}
                   alt=""
@@ -308,7 +314,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
                 </div>
               </div>
               <div className={styles.layout}></div>
-            </div>
+            </div> */}
             <div className={styles.wrapper}>
               <img
                 onClick={onAlohomora}
@@ -349,6 +355,7 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
             onClick={resetGame}
             pairsCount={pairsCount}
             timer={timer}
+            achievements={achievements}
           />
         </div>
       ) : null}

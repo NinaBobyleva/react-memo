@@ -20,7 +20,7 @@ export function LeaderboardPage() {
   useEffect(() => {
     getLeaders().then(leaders => {
       const sortedLeaders = sortLeadersElements(leaders.leaders);
-      setLeaders(sortedLeaders.splice(1, 10));
+      setLeaders(sortedLeaders.splice(0, 10));
     });
   }, []);
 
