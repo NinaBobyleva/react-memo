@@ -76,9 +76,11 @@ export function EndGameModal({
               placeholder="Пользователь"
             />
             <Button
+              className={styles.btn}
               onClick={e => {
                 e.preventDefault();
                 if (!inputLeaders.trim()) {
+                  setError("Введите имя");
                   return;
                 }
                 onLeaders();
@@ -104,7 +106,7 @@ export function EndGameModal({
       <Link className={styles.link} to="/leaderboard">
         Перейти к лидерборду
       </Link>
-      {error && error}
+      <p className={styles.errorText}>{error && error}</p>
     </div>
   );
 }
