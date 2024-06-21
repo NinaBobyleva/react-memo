@@ -7,9 +7,9 @@ import superPowers from "./images/super-powers.png";
 import hardMode from "./images/hard-mode.png";
 
 export const Leaderboard = ({ position, user, time, achievements, color = "black" }) => {
-  const achivImg = achievements[0] === 1 ? vectorActivImageUrl : vectorImageUrl;
+  const achieveImg = achievements.includes(1) ? vectorActivImageUrl : vectorImageUrl;
 
-  const achivImg2 = achievements[1] === 2 ? magicBallActivImageUrl : magicBallImageUrl;
+  const achieveImg2 = achievements.includes(2) ? magicBallActivImageUrl : magicBallImageUrl;
 
   return (
     <>
@@ -17,17 +17,17 @@ export const Leaderboard = ({ position, user, time, achievements, color = "black
         <div className={styles.position}>{position}</div>
         <div className={styles.user}>{user}</div>
         <div className={styles.img}>
-          <div className={achivImg === vectorActivImageUrl ? styles.wrapper : ""}>
+          <div className={achieveImg === vectorActivImageUrl ? styles.wrapper : ""}>
             <div>
-              <img src={achivImg} alt="#" />
+              <img src={achieveImg} alt="#" />
             </div>
             <div className={styles.bubble}>
               <img className={styles.description} src={hardMode} alt="#" />
             </div>
           </div>
-          <div className={achivImg2 === magicBallActivImageUrl ? styles.wrapper : ""}>
+          <div className={achieveImg2 === magicBallActivImageUrl ? styles.wrapper : ""}>
             <div>
-              <img src={achivImg2} alt="#" />
+              <img src={achieveImg2} alt="#" />
             </div>
             <div className={styles.bubble}>
               <img className={styles.description} src={superPowers} alt="#" />

@@ -47,6 +47,7 @@ export function LeaderboardPage() {
               user={el.name}
               time={formatTime(el.time)}
               achievements={el.achievements}
+              id={el.id}
             />
           ))}
         </ul>
