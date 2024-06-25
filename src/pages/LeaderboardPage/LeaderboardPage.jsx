@@ -6,12 +6,10 @@ import { useEffect, useContext } from "react";
 import { getLeaders } from "../../api/leaders";
 import { LeadersContext } from "../../context/leaderboardContext";
 import { sortLeadersElements } from "../../utils/helpers";
-// import { CardsContext } from "../../context/cardsContext";
 
 export function LeaderboardPage() {
   const { leaders, setLeaders } = useContext(LeadersContext);
-  // console.log(leaders);
-  // const { cards } = useContext(CardsContext);
+  console.log(leaders);
 
   const formatTime = timeInSeconds => {
     const seconds = ("0" + String(timeInSeconds % 60)).slice(-2);
@@ -23,7 +21,7 @@ export function LeaderboardPage() {
   useEffect(() => {
     getLeaders().then(leaders => {
       const sortedLeaders = sortLeadersElements(leaders.leaders);
-      setLeaders(sortedLeaders.splice(1, 10));
+      setLeaders(sortedLeaders.splice(0, 10));
     });
   }, []);
 
@@ -39,12 +37,19 @@ export function LeaderboardPage() {
         <div className={styles.box}>
           <p className={styles.subtitle1}>Позиция</p>
           <p className={styles.subtitle2}>Пользователь</p>
-          <p className={styles.subtitle3}></p>
+          <p className={styles.subtitle3}>Достижения</p>
           <p className={styles.subtitle4}>Время</p>
         </div>
         <ul className={styles.wrap}>
           {leaders.map((el, index) => (
-            <Leaderboard key={el.id} position={`#${index + 1}`} user={el.name} time={formatTime(el.time)} />
+            <Leaderboard
+              key={el.id}
+              position={`#${index + 1}`}
+              user={el.name}
+              time={formatTime(el.time)}
+              achievements={el.achievements}
+              id={el.id}
+            />
           ))}
         </ul>
       </main>

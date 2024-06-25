@@ -13,7 +13,15 @@ import { useContext } from "react";
 import { LeadersContext } from "../../context/leaderboardContext";
 import { sortLeadersElements } from "../../utils/helpers";
 
-export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, onClick, pairsCount, timer }) {
+export function EndGameModal({
+  isWon,
+  gameDurationSeconds,
+  gameDurationMinutes,
+  onClick,
+  pairsCount,
+  timer,
+  achievements,
+}) {
   const timeLeaders = getTimeInSeconds({ minutes: gameDurationMinutes, seconds: gameDurationSeconds });
 
   const imgSrc = isWon ? celebrationImageUrl : deadImageUrl;
@@ -39,6 +47,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
     const resultLeaderboard = {
       name: inputLeaders,
       time: timeLeaders,
+      achievements: achievements,
     };
 
     postLeaders({ resultLeaderboard })
@@ -54,13 +63,23 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
     <div className={styles.modal}>
       <img className={styles.image} src={imgSrc} alt={imgAlt} />
       <h2 className={styles.title}>{title}</h2>
-      {isLeadResult ? (
-        isWon ? (
-          <form
-            onSubmit={e => {
+      {isLeadResult && isWon && (
+        <form className={styles.form}>
+          <input
+            className={styles.input}
+            onChange={e => {
+              setInputLeaders(e.target.value);
+            }}
+            value={inputLeaders.name}
+            type="text"
+            placeholder="Пользователь"
+          />
+          <Button
+            className={styles.btn}
+            onClick={e => {
               e.preventDefault();
               if (!inputLeaders.trim()) {
-                setInputLeaders("Введите имя");
+                setError("Введите имя");
                 return;
               }
               onLeaders();
@@ -68,21 +87,9 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
               navigate("/leaderboard");
             }}
           >
-            <input
-              className={styles.input}
-              onChange={e => {
-                setInputLeaders(e.target.value);
-              }}
-              value={inputLeaders.name}
-              type="text"
-              placeholder="Пользователь"
-            />
-          </form>
-        ) : (
-          ""
-        )
-      ) : (
-        ""
+            Отправить
+          </Button>
+        </form>
       )}
       <p className={styles.description}>Затраченное время:</p>
       <div className={styles.time}>
@@ -93,7 +100,7 @@ export function EndGameModal({ isWon, gameDurationSeconds, gameDurationMinutes, 
       <Link className={styles.link} to="/leaderboard">
         Перейти к лидерборду
       </Link>
-      {error && error}
+      <p className={styles.errorText}>{error && error}</p>
     </div>
   );
 }

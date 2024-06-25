@@ -22,7 +22,6 @@
 .box {
     display: flex;
     gap: 66px;
-    justify-content: space-between;
     width: 944px;
     height: 64px;
     box-sizing: border-box;
@@ -45,7 +44,7 @@
 }
 
 .subtitle2 {
-    width: 324px;
+    width: 227px;
     font-family: Poppins;
     font-size: 24px;
     font-weight: 400;
@@ -54,7 +53,7 @@
 }
 
 .subtitle3 {
-    width: 102px;
+    width: 194px;
     font-family: Poppins;
     font-size: 24px;
     font-weight: 400;
@@ -63,7 +62,7 @@
 }
 
 .subtitle4 {
-    width: 102px;
+    width: 92px;
     font-family: Poppins;
     font-size: 24px;
     font-weight: 400;

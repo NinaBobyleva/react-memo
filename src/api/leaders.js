@@ -1,4 +1,4 @@
-const leadersURL = "https://wedev-api.sky.pro/api/leaderboard";
+const leadersURL = "https://wedev-api.sky.pro/api/v2/leaderboard";
 
 export const getLeaders = () => {
   return fetch(leadersURL, {
