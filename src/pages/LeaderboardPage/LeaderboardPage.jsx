@@ -9,6 +9,7 @@ import { sortLeadersElements } from "../../utils/helpers";
 
 export function LeaderboardPage() {
   const { leaders, setLeaders } = useContext(LeadersContext);
+  console.log(leaders);
 
   const formatTime = timeInSeconds => {
     const seconds = ("0" + String(timeInSeconds % 60)).slice(-2);

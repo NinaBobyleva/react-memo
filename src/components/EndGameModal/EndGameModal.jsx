@@ -63,39 +63,33 @@ export function EndGameModal({
     <div className={styles.modal}>
       <img className={styles.image} src={imgSrc} alt={imgAlt} />
       <h2 className={styles.title}>{title}</h2>
-      {isLeadResult ? (
-        isWon ? (
-          <form className={styles.form}>
-            <input
-              className={styles.input}
-              onChange={e => {
-                setInputLeaders(e.target.value);
-              }}
-              value={inputLeaders.name}
-              type="text"
-              placeholder="Пользователь"
-            />
-            <Button
-              className={styles.btn}
-              onClick={e => {
-                e.preventDefault();
-                if (!inputLeaders.trim()) {
-                  setError("Введите имя");
-                  return;
-                }
-                onLeaders();
-                setInputLeaders("");
-                navigate("/leaderboard");
-              }}
-            >
-              Отправить
-            </Button>
-          </form>
-        ) : (
-          ""
-        )
-      ) : (
-        ""
+      {isLeadResult && isWon && (
+        <form className={styles.form}>
+          <input
+            className={styles.input}
+            onChange={e => {
+              setInputLeaders(e.target.value);
+            }}
+            value={inputLeaders.name}
+            type="text"
+            placeholder="Пользователь"
+          />
+          <Button
+            className={styles.btn}
+            onClick={e => {
+              e.preventDefault();
+              if (!inputLeaders.trim()) {
+                setError("Введите имя");
+                return;
+              }
+              onLeaders();
+              setInputLeaders("");
+              navigate("/leaderboard");
+            }}
+          >
+            Отправить
+          </Button>
+        </form>
       )}
       <p className={styles.description}>Затраченное время:</p>
       <div className={styles.time}>
