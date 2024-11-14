@@ -8,7 +8,6 @@ import { Card } from "../../components/Card/Card";
 import { LivesContext } from "../../context/livesContext";
 import { EasyModeContext } from "../../context/easymodeContext";
 import { CardsContext } from "../../context/cardsContext";
-// import epiphany from "./images/epiphany.png";
 import alohomora from "./images/alohomora.png";
 
 // Игра закончилась
@@ -18,8 +17,6 @@ const STATUS_WON = "STATUS_WON";
 const STATUS_IN_PROGRESS = "STATUS_IN_PROGRESS";
 // Начало игры: игрок видит все карты в течении нескольких секунд
 const STATUS_PREVIEW = "STATUS_PREVIEW";
-
-// const STATUS_PAUSED = "STATUS_PAUSED";
 
 function getTimerValue(startDate, endDate) {
   if (!startDate && !endDate) {
@@ -54,7 +51,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   const [status, setStatus] = useState(STATUS_PREVIEW);
   // Дата начала игры
   const [gameStartDate, setGameStartDate] = useState(null);
-  // console.log(gameStartDate);
   // Дата конца игры
   const [gameEndDate, setGameEndDate] = useState(null);
   // Режим трёх попыток
@@ -62,18 +58,13 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
   // Счетчик жизней
   const { lives, setLives } = useContext(LivesContext);
 
-  // const [isActivEpiphany, setIsActivEpiphany] = useState(false);
-
   const [isActivAlohomora, setIsActivAlohomora] = useState(false);
-
-  // const [isPaused, setIsPaused] = useState(false);
 
   // Стейт для таймера, высчитывается в setInteval на основе gameStartDate и gameEndDate
   const [timer, setTimer] = useState({
     seconds: 0,
     minutes: 0,
   });
-  // console.log(timer);
 
   function finishGame(status = STATUS_LOST) {
     setGameEndDate(new Date());
@@ -210,45 +201,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
     };
   }, [gameStartDate, gameEndDate, status]);
 
-  // Заготовка для Epiphany
-  // useEffect(() => {
-  //   if (status !== STATUS_PAUSED) {
-  //     const intervalId = setInterval(() => {
-  //       setTimer(getTimerValue(gameStartDate, gameEndDate));
-  //     }, 300);
-  //     return () => {
-  //       clearInterval(intervalId);
-  //     };
-  //   }
-  // }, [gameStartDate, gameEndDate, status]);
-
-  // return () => {
-  //   clearInterval(intervalId);
-  //   const id = setInterval(() => {
-  //     setTimer(getTimerValue(gameStartDate, gameEndDate));
-  //   }, 300);
-  //   return () => {
-  //     clearInterval(id);
-  //     // setTimer(getTimerValue(null, null));
-  //   };
-  // };
-
-  // const onEpiphany = () => {
-  //   // setIsPaused(true);
-  //   setIsActivEpiphany(true);
-  //   const oldTime = timer;
-  //   const date = new Date();
-  //   setStatus(STATUS_PAUSED);
-  //   const oldCards = cards;
-  //   setCards(cards.map(card => ({ ...card, open: true })));
-  //   setTimeout(() => {
-  //     setCards(oldCards);
-  //     setTimer(oldTime);
-  //     setGameStartDate(date);
-  //     setStatus(STATUS_IN_PROGRESS);
-  //   }, 5000);
-  // };
-
   const onAlohomora = () => {
     setIsActivAlohomora(true);
     const firstCard = cards.find(card => card.open === false);
@@ -298,23 +250,6 @@ export function Cards({ pairsCount = 3, previewSeconds = 5 }) {
           ""
         ) : (
           <div className={styles.superPowersContainer}>
-            {/* <div>
-              <div className={styles.wrapper}>
-                <img
-                  // onClick={onEpiphany}
-                  className={isActivEpiphany ? styles.disabledEpiphany : styles.superPowerImg}
-                  src={epiphany}
-                  alt=""
-                />
-                <div className={styles.bubble}>
-                  <h4 className={styles.title}>Прозрение</h4>
-                  <p className={styles.description}>
-                    На 5 секунд показываются все карты. Таймер длительности игры на это время останавливается.
-                  </p>
-                </div>
-              </div>
-              <div className={styles.layout}></div>
-            </div> */}
             <div className={styles.wrapper}>
               <img
                 onClick={onAlohomora}
